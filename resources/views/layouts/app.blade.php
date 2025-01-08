@@ -14,25 +14,25 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-white dark:bg-white">
-
+    <body class="font-sans antialiased flex flex-col min-h-screen">
+        <!-- Wrapper div to manage layout -->
+        <div class="flex flex-col flex-1">
             <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
+
+                <header class="bg-white">
                     @include('partials.header')
                 </header>
-            @endisset
+
 
             <!-- Page Content -->
-            <main>
+            <main class="flex-1">
                 @yield('content')
-
             </main>
-
-            <!-- Footer -->
-            <footer class="bg-Jesper dark:bg-Jesper mw-full h-full max-h-50 p-4">
-                @include('partials.footer')
         </div>
+
+        <!-- Footer -->
+        <footer class="bg-Jesper dark:bg-Jesper w-full h-[60px] p-4">
+            @include('partials.footer')
+        </footer>
     </body>
 </html>
