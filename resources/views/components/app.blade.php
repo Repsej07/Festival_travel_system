@@ -20,10 +20,11 @@
     <!-- Wrapper div to manage layout -->
     <div class="flex flex-col flex-1">
         <!-- Page Heading -->
-
+            @isset($header)
         <header class="bg-white">
             @include('partials.header')
         </header>
+        @endisset
 
 
         <!-- Page Content -->

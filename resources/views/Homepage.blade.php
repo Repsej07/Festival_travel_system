@@ -1,7 +1,5 @@
-{{ $header = null }}
-@extends('layouts.app')
-@section('content')
-    <x-app-layout>
+{{ $header = null }} 
+    <x-app>
         <div class=" flex flex-col justify-center items-center max-h-screen h-80 ">
             <h1 class="text-4xl font-bold text-center m-0">Welcome to Festival Travel System</h1>
             <p class="text-center m-5">Please register or login to continue</p>
@@ -17,5 +15,4 @@
 
             </div>
         </div>
-    </x-app-layout>
-@endsection
+    </x-app>
