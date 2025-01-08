@@ -13,21 +13,23 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        <header>
-            @include('partials.header')
-
-        </header>
     </head>
     <body class="font-sans antialiased flex flex-col min-h-screen">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-white">
+        <!-- Wrapper div to manage layout -->
+        <div class="flex flex-col flex-1">
 
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+
+            <!-- Page Content -->
+            <main class="flex-1">
+                {{-- @yield('content') --}}
                 {{ $slot }}
-            </div>
-            <footer class="bg-Jesper dark:bg-Jesper w-full h-[60px] p-4">
-                @include('partials.footer')
-            </footer>
+            </main>
         </div>
+
+        <!-- Footer -->
+        <footer class="bg-Jesper dark:bg-Jesper w-full h-[60px] p-4">
+            @include('partials.footer')
+        </footer>
     </body>
 </html>
