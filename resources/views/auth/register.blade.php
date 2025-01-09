@@ -25,8 +25,14 @@
                 <!-- Email Address -->
                 <div class="mt-4">
                     <x-text-input id="email" class="block mt-1 w-96" type="email" name="email" :value="old('email')"
-                        required autocomplete="username" placeholder="Username" />
+                        required autocomplete="email" placeholder="Email" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+                <!--username-->
+                <div class="mt-4">
+                    <x-text-input id="username" class="block mt-1 w-96" type="text" name="username" :value="old('username')"
+                        required autocomplete="username" placeholder="Username" />
+                    <x-input-error :messages="$errors->get('username')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
