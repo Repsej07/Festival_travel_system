@@ -17,6 +17,9 @@ export default {
                 'apple_button_blue': '#007AFF',
                 'apple_button_blue_hover': '#006FE6',
             },
+            width: {
+                '128': '32rem',
+              },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

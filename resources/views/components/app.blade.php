@@ -22,7 +22,7 @@
         <!-- Page Heading -->
             @isset($header)
         <header class="bg-white">
-            @include('partials.header')
+            @include('layouts.navigation')
         </header>
         @endisset
 

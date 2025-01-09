@@ -51,7 +51,7 @@
                 </div>
                 <!-- Register Button -->
                 <button type="submit"
-                    class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4">Create account</button>
+                    class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4 hover:bg-apple_button_blue_hover">Create account</button>
             </form>
         </div>
     </div>
