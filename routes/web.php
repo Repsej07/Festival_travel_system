@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('Homepage');
-});
+// Route::get('/', function () {
+//     return view('Dashboard');
+// });
+Route::get('/', function(){
+    return view('dashboard');
+
+})->Middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/register', function () {
     return view('register');
 });
