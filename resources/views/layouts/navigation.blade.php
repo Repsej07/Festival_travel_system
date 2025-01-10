@@ -11,6 +11,8 @@
                 </div>
 
                 <!-- Navigation Links -->
+                @auth
+                @if (!Auth::user()->admin)
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-black">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Festivals') }}
@@ -21,6 +23,16 @@
                         {{ __('Contact') }}
                     </x-nav-link>
                 </div>
+                @endif
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex text-black">
+                    @if (Auth::user()->admin)
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('admin.index')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
+                    @endif
+                </div>
+                @endauth
             </div>
 
             @auth

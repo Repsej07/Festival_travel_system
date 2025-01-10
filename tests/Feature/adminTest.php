@@ -48,7 +48,7 @@ class adminTest extends TestCase
         $response = $this->actingAs($nonAdminUser)->get('/admin');
 
         // Assert the response status is 403 Forbidden
-        $response->assertStatus(500);
+        $response->assertStatus(403);
 
         // Optionally, assert that specific content is present in the response
         $response->assertSee('Unauthorized access'); // Or use any custom message or view for unauthorized users
