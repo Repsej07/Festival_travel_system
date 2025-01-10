@@ -30,8 +30,8 @@
                 </div>
                 <!--username-->
                 <div class="mt-4">
-                    <x-text-input id="username" class="block mt-1 w-96" type="text" name="username" :value="old('username')"
-                        required autocomplete="username" placeholder="Username" />
+                    <x-text-input id="username" class="block mt-1 w-96" type="text" name="username"
+                        :value="old('username')" required autocomplete="username" placeholder="Username" />
                     <x-input-error :messages="$errors->get('username')" class="mt-2" />
                 </div>
 
@@ -50,8 +50,14 @@
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                 </div>
                 <!-- Register Button -->
-                <button type="submit"
-                    class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4 hover:bg-apple_button_blue_hover">Create account</button>
+                <div class=" flex flex-col">
+                    <label class="flex content-center items-center mt-4 justify-center">
+                        <input type="file" name="profile_picture" accept="image/*" required>
+                    </label>
+                    <button type="submit"
+                        class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4 hover:bg-apple_button_blue_hover">Create
+                        account</button>
+                </div>
             </form>
         </div>
     </div>
