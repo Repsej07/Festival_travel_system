@@ -14,6 +14,9 @@ Route::get('/', function(){
 Route::get('/register', function () {
     return view('register');
 });
+Route::get('/contact' , function(){
+    return view('contact');
+})->name('contact');
 // Route::get("/register", [RegisterController::class, 'create'])->name('register');
 // Route::post("/register", [RegisterController::class, 'store'])->name('register.store');
 
