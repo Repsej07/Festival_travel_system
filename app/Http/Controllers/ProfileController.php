@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -24,16 +24,44 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        // Validate the incoming request
+        $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . Auth::id()],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . Auth::id()],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        // Get the authenticated user
+        $user = $request->user();
+
+        // Update the username and email fields
+        $user->username = $request->username;
+        $user->email = $request->email;
+
+        // Check if an image was uploaded
+        if ($request->hasFile('image')) {
+            // Delete the old profile picture from storage (if exists)
+            if ($user->profile_picture && Storage::exists($user->profile_picture)) {
+                Storage::delete($user->profile_picture);
+            }
+
+            // Store the new image
+            $imagePath = $request->file('image')->storeAs(
+                'profile_pictures',
+                $request->username . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension(),
+                'public'
+            );
+
+            // Save the new profile picture path to the user model
+            $user->profile_picture = $imagePath;
         }
 
-        $request->user()->save();
+        // Save the updated user information
+        $user->save();
 
+        // Redirect back to the profile edit page with a success message
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
@@ -49,6 +77,11 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
+
+        // Optionally, delete the profile picture when the account is deleted
+        if ($user->profile_picture && Storage::exists($user->profile_picture)) {
+            Storage::delete($user->profile_picture);
+        }
 
         $user->delete();
 
