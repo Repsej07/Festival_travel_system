@@ -30,30 +30,36 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // Validate incoming request
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'unique:'.User::class],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'username' => ['required', 'string', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
+
+        // Store the file and get the path
+        $imagePath = $request->file('image')->storeAs(
+            'profile_pictures', // Directory to store file
+            $request->username . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension(),
+            'public' // Use the public disk
+        );
+
+        // Create user record in DB with the file path
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'username'=>$request->username,
+            'username' => $request->username,
             'email' => $request->email,
             'admin' => false,
             'password' => Hash::make($request->password),
-            'profile_picture' => $request->profile_picture,
+            'profile_picture' => $imagePath, // Store the file path in the DB
         ]);
 
-        if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->profile_picture = 'storage/' . $path; // Make sure to prefix with 'storage/'
-        }
-
+        // Log the user in after successful registration
         event(new Registered($user));
-
         Auth::login($user);
 
         return redirect(route('home', absolute: false));

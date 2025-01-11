@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-center items-center">
         <h1 class="text-3xl font-bold text-center m-5">Register here!</h1>
         <div class="flex justify-center items-center max-h-full">
-            <form method="POST" action="{{ route('register') }}"
+            <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data"
                 class="form flex flex-col m-5 border-2 border-gray-200 p-5 rounded-md">
                 @csrf
 
@@ -52,7 +52,7 @@
                 <!-- Register Button -->
                 <div class=" flex flex-col">
                     <label class="flex content-center items-center mt-4 justify-center">
-                        <input type="file" name="profile_picture" accept="image/*" required>
+                        <input type="file" name="image" required>
                     </label>
                     <button type="submit"
                         class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4 hover:bg-apple_button_blue_hover">Create
