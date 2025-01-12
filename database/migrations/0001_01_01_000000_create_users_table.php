@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('admin')->default(false);
-            $table->integer('points')->default(0); //give the user 99 points for testing purposes
+            $table->integer('points')->default(0); 
             $table->rememberToken();
             $table->timestamps();
         });
