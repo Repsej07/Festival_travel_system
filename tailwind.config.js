@@ -18,6 +18,8 @@ export default {
                 'apple_button_blue_hover': '#006FE6',
                 'system_gray': '#C1C0C0',
                 'system_gray_light': '#D9D9D9',
+                'Jesper_light': '#717D96',
+                'placeholder': '#2D3648',
             },
             width: {
                 '128': '32rem',
@@ -38,6 +40,9 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
                 inter: ['Inter', ...defaultTheme.fontFamily.sans],
+            },
+            backgroundImage:{
+                'search': "url('/resources/css/assets/search_icon.svg')"
             },
         },
     },

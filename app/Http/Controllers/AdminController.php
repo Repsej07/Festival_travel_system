@@ -65,4 +65,12 @@ class AdminController extends Controller
     {
         //
     }
+    public function searchusers(Request $request){
+        $search = $request->input('search');
+        $results = \App\Models\User::where('first_name', 'like', "%$search%")->get();
+
+        return view('admin.index', ['results' => $results]);
+
+
+    }
 }

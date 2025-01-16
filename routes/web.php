@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -40,7 +41,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin-specific resource routes
 Route::resource('admin', AdminController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'searchusers'])
     ->middleware(['auth', 'verified', 'admin']);
-
+Route::get('/admin/searchusers', [AdminController::class, 'searchUsers'])->name('admin.searchusers');
 require __DIR__ . '/auth.php';

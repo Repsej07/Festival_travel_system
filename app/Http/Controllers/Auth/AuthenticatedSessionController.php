@@ -44,4 +44,11 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('Homepage');
     }
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        $results = \App\Models\User::where('name', 'like', "%$search%")->get();
+
+        return view('products.index', ['results' => $results]);
+    }
 }
