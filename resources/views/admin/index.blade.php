@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
     </x-slot>
-    <x-admin-dashboard>
-    </x-admin-dashboard>
+    <x-adminDashboard :users="$users">
+    </x-adminDashboard>
+
 </x-app-layout>
+

@@ -6,14 +6,16 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class admin-dashboard extends Component
+class admindashboard extends Component
 {
     /**
+
      * Create a new component instance.
      */
-    public function __construct()
+    public $users;
+    public function __construct($users)
     {
-        //
+        $this->users = $users;
     }
 
     /**
@@ -21,6 +23,6 @@ class admin-dashboard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.admin-dashboard');
+        return view('components.adminDashboard');
     }
 }

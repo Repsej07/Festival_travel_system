@@ -7,6 +7,7 @@ use Barryvdh\Debugbar\DataCollector\ViewCollector;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -15,7 +16,8 @@ class AdminController extends Controller
      */
     public function index(): View
     {
-        return view('admin.index');
+        $users = User::all();
+        return view('admin.index', ['users' => $users]);
     }
 
     /**
@@ -67,10 +69,11 @@ class AdminController extends Controller
     }
     public function searchusers(Request $request){
         $search = $request->input('search');
-        $results = \App\Models\User::where('first_name', 'like', "%$search%")->get();
-
-        return view('admin.index', ['results' => $results]);
-
-
+        $users = User::all();
+        $results = $users->filter(function($user) use ($search) {
+            return stripos($user->name, $search) !== false;
+        });
+        return view('admin.users', ['users' => $results]);
     }
 }
+
