@@ -47,4 +47,4 @@ class UserFactory extends Factory
         ]);
     }
 }
-\App\Models\User::factory()->count(1000)->create();
+// \App\Models\User::factory()->count(10)->create();

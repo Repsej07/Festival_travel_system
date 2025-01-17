@@ -10,20 +10,20 @@
                 </form>
                 <span><img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-1"></span>
             </div>
-            @if (isset($users) && count($users) > 0)
+            @if (isset($festivals) && count($festivals) > 0)
                 <ul class="overflow-scroll h-114 mt-4 rounded-lg">
-                    @foreach ($users as $user)
+                    @foreach ($festivals as $festival)
                         <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2  ">
                             <div class="flex flex-row  mt-3 ml-3 mb-3">
-                                <li><img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture"
-                                        class="h-10 w-10 rounded-full mr-5"></li>
-                                <li class=" flex  items-center">{{ $user->first_name }} {{ $user->last_name }}</li>
+                                {{-- <li><img src="{{ asset('storage/' }}" alt="Profile Picture" --}}
+                                        {{-- class="h-10 w-10 rounded-full mr-5"></li> --}}
+                                <li class=" flex  items-center">{{ $festival->name }}</li>
                             </div>
                             <hr class="border-1 border-black">
                             <div class="flex flex-col items-start mt-3 ml-3">
-                                <li>Username: {{ $user->username }} {{ $user->points }}pts</li>
-                                <li>Email: {{ $user->email }}</li>
-                                <li>Admin: @if ($user->admin)
+                                <li>Username: {{ $festival->username }} {{ $festival->points }}pts</li>
+                                <li>Email: {{ $festival->email }}</li>
+                                <li>Admin: @if ($festival->admin)
                                         Yes
                                     @else
                                         No

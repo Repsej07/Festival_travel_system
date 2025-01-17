@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Festival;
-use Barryvdh\Debugbar\DataCollector\ViewCollector;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
@@ -17,7 +16,9 @@ class AdminController extends Controller
     public function index(): View
     {
         $users = User::all();
-        return view('admin.index', ['users' => $users]);
+        $festivals = Festival::all();
+        return view('admin.index', ['users' => $users, 'festivals' => $festivals]);
+
     }
 
     /**
@@ -67,13 +68,18 @@ class AdminController extends Controller
     {
         //
     }
-    public function searchusers(Request $request){
+    public function searchUsers(Request $request)
+    {
         $search = $request->input('search');
-        $users = User::all();
-        $results = $users->filter(function($user) use ($search) {
-            return stripos($user->name, $search) !== false;
-        });
+        $results = User::where('name', 'like', '%' . $search . '%')->get();
         return view('admin.users', ['users' => $results]);
+    }
+
+    public function searchFestivals(Request $request)
+    {
+        $search = $request->input('search');
+        $results = Festival::where('name', 'like', '%' . $search . '%')->get();
+        return view('admin.festivals', ['festivals' => $results]);
     }
 }
 

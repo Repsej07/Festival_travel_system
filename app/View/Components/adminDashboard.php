@@ -13,9 +13,12 @@ class admindashboard extends Component
      * Create a new component instance.
      */
     public $users;
-    public function __construct($users)
+    public $festivals;
+    
+    public function __construct($users, $festivals)
     {
         $this->users = $users;
+        $this->festivals = $festivals;
     }
 
     /**
