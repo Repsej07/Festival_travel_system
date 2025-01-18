@@ -16,19 +16,16 @@
                         <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2  ">
                             <div class="flex flex-row  mt-3 ml-3 mb-3">
                                 {{-- <li><img src="{{ asset('storage/' }}" alt="Profile Picture" --}}
-                                        {{-- class="h-10 w-10 rounded-full mr-5"></li> --}}
+                                {{-- class="h-10 w-10 rounded-full mr-5"></li> --}}
                                 <li class=" flex  items-center">{{ $festival->name }}</li>
                             </div>
                             <hr class="border-1 border-black">
                             <div class="flex flex-col items-start mt-3 ml-3">
-                                <li>Username: {{ $festival->username }} {{ $festival->points }}pts</li>
-                                <li>Email: {{ $festival->email }}</li>
-                                <li>Admin: @if ($festival->admin)
-                                        Yes
-                                    @else
-                                        No
-                                    @endif
-                                </li>
+                                <li>Location: {{ $festival->location }}</li>
+                                <li>Date:  {{ $festival->date }}</li>
+                                <li>Price: € {{ $festival->price }}</li>
+                                <li>Tickets left: {{$festival->tickets}}</li>
+                                <li>Status: {{$festival->status}}</li>
                             </div>
                         </div>
                     @endforeach
