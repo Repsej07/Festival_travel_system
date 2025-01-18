@@ -1,4 +1,6 @@
 <div class="max-h-24 w-full flex justify-between items-center">
+    <script src="//unpkg.com/alpinejs" defer></script>
+
     <x-application-logo/>
     <div class="flex flex-col items-end mr-2">
         <div class="flex flex-col items-center">
