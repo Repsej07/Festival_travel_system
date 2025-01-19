@@ -44,4 +44,9 @@ Route::resource('admin', AdminController::class)
     ->only(['index', 'store', 'searchusers'])
     ->middleware(['auth', 'verified', 'admin']);
 Route::get('/admin/searchusers', [AdminController::class, 'searchUsers'])->name('admin.searchusers');
+Route::get('/admin/searchfestivals', [AdminController::class, 'searchFestivals'])->name('admin.searchfestivals');
+Route::get('/admin/searchbusreizen', [AdminController::class, 'searchBusreizen'])->name('admin.searchbusreizen');
+Route::get('/admin/festivals/create', [AdminController::class, 'createFestival'])->name('admin.festivals.create');
+Route::get('/admin/busreizen/create', [AdminController::class, 'createBusreis'])->name('admin.busreizen.create');
+Route::get('/admin/user/create', [AdminController::class, 'createUser'])->name('admin.user.create');
 require __DIR__ . '/auth.php';

@@ -20,4 +20,8 @@ class Busreizen extends Model
         'arrival_time',
         'festival_id',
     ];
+    public function festival()
+    {
+        return $this->belongsTo(Festival::class, 'festival_id');
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Busreizen;
 
 class AdminController extends Controller
 {
@@ -17,7 +18,8 @@ class AdminController extends Controller
     {
         $users = User::all();
         $festivals = Festival::all();
-        return view('admin.index', ['users' => $users, 'festivals' => $festivals]);
+        $busreizen = Busreizen::all();
+        return view('admin.index', ['users' => $users, 'festivals' => $festivals, 'busreizen' => $busreizen]);
 
     }
 
@@ -80,6 +82,13 @@ class AdminController extends Controller
         $search = $request->input('search');
         $results = Festival::where('name', 'like', '%' . $search . '%')->get();
         return view('admin.festivals', ['festivals' => $results]);
+    }
+
+    public function searchBusreizen(Request $request)
+    {
+        $search = $request->input('search');
+        $results = Busreizen::where('name', 'like', '%' . $search . '%')->get();
+        return view('admin.busreizen', ['busreizen' => $results]);
     }
 }
 

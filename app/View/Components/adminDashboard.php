@@ -14,11 +14,13 @@ class admindashboard extends Component
      */
     public $users;
     public $festivals;
-    
-    public function __construct($users, $festivals)
+    public $busreizen;
+
+    public function __construct($users, $festivals, $busreizen)
     {
         $this->users = $users;
         $this->festivals = $festivals;
+        $this->busreizen = $busreizen;
     }
 
     /**
