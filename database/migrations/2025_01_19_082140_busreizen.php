@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     /**
      * Run the migrations.
      */
@@ -18,8 +19,10 @@ return new class extends Migration
             $table->string('arrival');
             $table->date('departure_date');
             $table->date('arrival_date');
-            $table->integer('departure_time');
-            $table->integer('arrival_time');
+            $table->time('departure_time');
+            $table->time('arrival_time');
+            $table->unsignedBigInteger('festival_id');
+            $table->foreign('festival_id')->references('id')->on('festivals')->onDelete('cascade');
         });
     }
 

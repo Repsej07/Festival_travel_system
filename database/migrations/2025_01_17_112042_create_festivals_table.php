@@ -22,7 +22,7 @@ class CreateFestivalsTable extends Migration
             $table->string('image'); // Image URL or path
             $table->decimal('price', 8, 2); // Price (can be decimal for ticket price)
             $table->integer('tickets'); // Number of available tickets
-            $table->enum('status', ['active', 'cancelled', 'completed']); // Festival status
+            $table->enum('status', ['active', 'cancelled', 'completed', 'sold']); // Festival status
             $table->timestamps(); // Created at, Updated at timestamps
         });
     }

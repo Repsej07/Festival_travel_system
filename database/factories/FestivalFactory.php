@@ -22,8 +22,8 @@ class FestivalFactory extends Factory
         'image' => fake()->imageUrl(640, 480, 'festival', true, 'Festival'),
         'price' => fake()->randomFloat(2, 0, 500), // Prices between 0 (free) and 500
         'tickets' => fake()->numberBetween(50, 1000), // Ticket count between 50 and 1000
-        'status' => fake()->randomElement(['active', 'cancelled', 'sold out']),
+        'status' => fake()->randomElement(['active', 'cancelled', 'completed', 'sold']),
     ];
 }
-
+ //\App\Models\Festival::factory()->count(10)->create();
 }
