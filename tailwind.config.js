@@ -20,6 +20,7 @@ export default {
                 'system_gray_light': '#D9D9D9',
                 'Jesper_light': '#717D96',
                 'placeholder': '#2D3648',
+                'background_grey': '#DADADA'
             },
             width: {
                 '128': '32rem',
@@ -40,6 +41,8 @@ export default {
                 '112': '28rem',
                 '113': '28.25rem',
                 '114': '28.5rem',
+                '150': '37.5rem',
+                '160': '40rem',
             },
             fontSize: {
                 sm: '0.8rem',

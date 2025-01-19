@@ -26,9 +26,11 @@ class AdminController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+
+    public function createFestival(): View{
+        return view('admin.createFestival');
+
+
     }
 
     /**
