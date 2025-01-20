@@ -49,6 +49,7 @@ export default {
                 '114': '28.5rem',
                 '150': '37.5rem',
                 '160': '40rem',
+                '54': '13.5rem',
             },
             fontSize: {
                 sm: '0.8rem',

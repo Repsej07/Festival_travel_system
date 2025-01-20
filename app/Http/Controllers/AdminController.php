@@ -236,6 +236,21 @@ class AdminController extends Controller
     {
         //
     }
+    public function editFestival(Festival $festival){
+        return view('admin.editFestival', ['festival' => $festival]);
+    }
+    public function updateFestival(Festival $festival){
+        $festival->update([
+            'name' => request('name'),
+            'location' => request('location'),
+            'date' => request('date'),
+            'description' => request('description'),
+            'price' => request('price'),
+            'tickets' => request('tickets'),
+            'status' => request('status'),
+        ]);
+        return redirect(route('admin.index'));
+    }
     public function searchUsers(Request $request)
     {
         $search = $request->input('search');
@@ -358,7 +373,7 @@ class AdminController extends Controller
         }
 
         // Create user record in DB with the file path
-        $user = User::create([
+        User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'username' => $request->username,

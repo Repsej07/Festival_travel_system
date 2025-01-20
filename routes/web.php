@@ -48,6 +48,8 @@ Route::get('/admin/searchfestivals', [AdminController::class, 'searchFestivals']
 Route::get('/admin/searchbusreizen', [AdminController::class, 'searchBusreizen'])->name('admin.searchbusreizen');
 Route::get('/admin/festivals/create', [AdminController::class, 'createFestival'])->name('admin.festivals.create');
 Route::post('/admin/festivals/store', [AdminController::class, 'storeFestival'])->name('admin.festivals.store');
+Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFestival'])->name('admin.festival.edit');
+Route::patch('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.festival.update');
 Route::get('/admin/busreizen/create', [AdminController::class, 'createBusreis'])->name('admin.busreizen.create');
 Route::post('/admin/busreizen/store', [AdminController::class, 'storeBusreis'])->name('admin.busreizen.store');
 Route::get('/admin/user/create', [AdminController::class, 'createUser'])->name('admin.user.create');
