@@ -29,7 +29,7 @@
                             @if ($festival->status == 'active' || $festival->status == 'sold')
                                 <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-52">
                                     <div class="flex flex-row mt-3 ml-3 mb-3">
-                                        <li><img src="{{ asset('storage/' . $festival->image) }}"
+                                        <li><img src="{{ asset("storage/{$festival->image}") }}"
                                             alt="Profile Picture" class="h-10 w-10 mr-5"></li>
                                         <li class="flex items-center">{{ $festival->name }}</li>
                                     </div>
@@ -125,7 +125,7 @@
                         @foreach ($users as $user)
                             <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-52">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
-                                    <li><img src="{{ asset('storage/' . $user->profile_picture) }}"
+                                    <li><img src="{{ asset("storage/{$user->profile_picture}") }}"
                                             alt="Profile Picture" class="h-10 w-10 rounded-full mr-5"></li>
                                     <li class="flex items-center">{{ $user->first_name }} {{ $user->last_name }}</li>
                                 </div>

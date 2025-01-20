@@ -57,15 +57,25 @@ class SearchTest extends TestCase
      * @return void
      */
     public function test_search_users_functionality()
-    {
-        $adminUser = User::factory()->create(['admin' => true]);
-        $searchTerm = 'John';
-        User::factory()->create(['first_name' => 'John ', 'last_name' => 'Doe']);
-        User::factory()->create(['first_name' => 'Jane', 'last_name' => 'Doe']);
+{
+    $adminUser = User::factory()->create(['admin' => true]);
+    $searchTerm = 'John';
 
-        $response = $this->actingAs($adminUser)->get("/admin/searchusers?search={$searchTerm}");
-        $response->assertStatus(200);
-        $results = $response->json('users');
-        $this->assertTrue(collect($results)->contains('name', 'John Doe') && !collect($results)->contains('name', 'Jane Doe'));
-    }
+    // Create test users
+    $john = User::factory()->create(['first_name' => 'John', 'last_name' => 'Doe']);
+    User::factory()->create(['first_name' => 'Jane', 'last_name' => 'Doe']);
+
+    // Make the search request
+    $response = $this->actingAs($adminUser)->get("/admin/searchusers?search={$searchTerm}");
+
+    // Assert the response
+    $response->assertStatus(200);
+    $response->assertJsonStructure(['users']);
+
+    $results = $response->json('users');
+    $this->assertCount(1, $results);
+    $this->assertEquals($john->id, $results[0]['id']);
+    $this->assertEquals('John', $results[0]['first_name']);
+}
+
 }

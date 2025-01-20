@@ -8,7 +8,7 @@
                     @csrf
 
                     <!-- Festival Dropdown -->
-                    <div class="flex flex-col justify-center w-96">
+                    <div class="flex flex-col col-span-2 md:col-span-1">
                         <label for="festival" class="text-black">Name of festival</label>
                         <select name="festival_id" id="festival_id" class="p-2 rounded-md" required>
                             @foreach($festivals as $festival)
@@ -16,36 +16,29 @@
                             @endforeach
                         </select>
                     </div>
+
                     <!-- Location Field -->
-                    <div class="flex flex-col">
+                    <div class="flex flex-col col-span-2">
                         <label for="departure" class="text-black">Departure</label>
-                        <input type="text" name="departure" id="departure" class="p-2 rounded-md" required>
+                        <select name="departure" id="departure" class="p-2 rounded-md" required>
+                            @foreach($locations as $location)
+                                <option value="{{ $location }}">{{ $location}}</option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <!-- Date Field -->
-                    <div class="flex flex-col">
-                        <label for="date" class="text-black">Festival date</label>
-                        <input type="date" name="date" id="date" class="p-2 rounded-md" required>
+                    <div class="flex flex-col col-span-2">
+                        <label for="departure_date" class="text-black">Departure date and time</label>
+                        <input type="datetime-local" name="departure_date" id="departure_date" class="p-2 rounded-md" required>
                     </div>
 
-                    <!-- Tickets Field -->
-                    <div class="flex flex-col">
-                        <label for="tickets" class="text-black">Tickets</label>
-                        <input type="number" name="tickets" id="tickets" class="p-2 rounded-md" required>
+                    <div class="flex flex-col col-span-2">
+                        <label for="arrival_date" class="text-black">Arrival date and time</label>
+                        <input type="datetime-local" name="arrival_date" id="arrival_date" class="p-2 rounded-md" required>
                     </div>
-
-                    <!-- Price Field -->
-                    <div class="flex flex-col">
-                        <label for="price" class="text-black">Price</label>
-                        <input type="number" name="price" id="price" class="p-2 rounded-md" required>
-                    </div>
-
-                    <div>
-                        <input type="text" name="status" value="active" hidden>
-                    </div>
-
                     <!-- Submit Button -->
-                    <div class="flex col-span-2 justify-center">
+                    <div class="flex col-span-2 justify-center mt-5">
                         <button type="submit" class="bg-Jesper p-2 rounded-md text-white w-full hover:bg-Jesper_light">Create</button>
                     </div>
                 </form>
@@ -55,9 +48,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var dateInput = document.getElementById('date');
-            var today = new Date().toISOString().split('T')[0];
-            dateInput.setAttribute('min', today);
+            var departureInput = document.getElementById('departure_date');
+            var arrivalInput = document.getElementById('arrival_date');
+            var now = new Date().toISOString().slice(0, 16);
+            departureInput.setAttribute('min', now);
+            arrivalInput.setAttribute('min', now);
         });
     </script>
 </x-app-layout>
