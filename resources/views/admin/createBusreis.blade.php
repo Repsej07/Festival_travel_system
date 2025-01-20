@@ -4,29 +4,22 @@
     <div class="flex">
         <div class="w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
             <div class="flex flex-row space-x-5 p-5">
-                <form action="{{ route('admin.festivals.store') }}" method="POST" class="p-5 grid grid-cols-2 gap-5" enctype="multipart/form-data">
+                <form action="{{ route('admin.busreizen.store') }}" method="POST" class="p-5 grid grid-cols-2 gap-5" enctype="multipart/form-data">
                     @csrf
 
-                    <!-- Name Field -->
+                    <!-- Festival Dropdown -->
                     <div class="flex flex-col justify-center w-96">
-                        <label for="name" class="text-black">Name of festival</label>
-                        <input type="text" name="name" id="name" class="p-2 rounded-md" required>
+                        <label for="festival" class="text-black">Name of festival</label>
+                        <select name="festival_id" id="festival_id" class="p-2 rounded-md" required>
+                            @foreach($festivals as $festival)
+                                <option value="{{ $festival->id }}">{{ $festival->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
-
-                    <div class="flex flex-col">
-                        <label for="image" class="text-black">Image</label>
-                        <input type="file" name="image" id="image" class="p-2 rounded-md" accept="image/*" required>
-                    </div>
-
-                    <div class="flex flex-col col-span-2">
-                        <label for="description" class="text-black">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="4" class="p-2 rounded-md resize-none" required></textarea>
-                    </div>
-
                     <!-- Location Field -->
                     <div class="flex flex-col">
-                        <label for="location" class="text-black">Location</label>
-                        <input type="text" name="location" id="location" class="p-2 rounded-md" required>
+                        <label for="departure" class="text-black">Departure</label>
+                        <input type="text" name="departure" id="departure" class="p-2 rounded-md" required>
                     </div>
 
                     <!-- Date Field -->

@@ -32,6 +32,12 @@ class AdminController extends Controller
         return view('admin.createFestival');
 
 
+
+    }
+    public function createBusreis(): View{
+        $festivals = Festival::all();
+        return view('admin.createBusreis', ['festivals' => $festivals]);
+
     }
 
     /**
@@ -94,6 +100,9 @@ class AdminController extends Controller
         return view('admin.busreizen', ['busreizen' => $results]);
     }
 
+    public function storeBusreis(Request $request){
+
+    }
     public function storeFestival(Request $request)
     {
         try {
