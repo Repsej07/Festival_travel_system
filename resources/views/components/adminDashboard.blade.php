@@ -27,8 +27,10 @@
                     <ul class="overflow-scroll h-123 mt-1 rounded-lg">
                         @foreach ($festivals as $festival)
                             @if ($festival->status == 'active' || $festival->status == 'sold')
-                                <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-48">
+                                <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-52">
                                     <div class="flex flex-row mt-3 ml-3 mb-3">
+                                        <li><img src="{{ asset('storage/' . $festival->image) }}"
+                                            alt="Profile Picture" class="h-10 w-10 mr-5"></li>
                                         <li class="flex items-center">{{ $festival->name }}</li>
                                     </div>
                                     <hr class="border-1 border-black">
@@ -75,7 +77,7 @@
                 @if (isset($busreizen) && count($busreizen) > 0)
                     <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
                         @foreach ($busreizen as $busreis)
-                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-48">
+                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-52">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
                                     <li>
                                     <li class="flex items-center">{{ $busreis->departure }} - {{ $busreis->arrival }}
@@ -121,7 +123,7 @@
                 @if (isset($users) && count($users) > 0)
                     <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
                         @foreach ($users as $user)
-                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-48">
+                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-52">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
                                     <li><img src="{{ asset('storage/' . $user->profile_picture) }}"
                                             alt="Profile Picture" class="h-10 w-10 rounded-full mr-5"></li>

@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Busreizen;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -92,5 +93,44 @@ class AdminController extends Controller
         $results = Busreizen::where('name', 'like', '%' . $search . '%')->get();
         return view('admin.busreizen', ['busreizen' => $results]);
     }
+
+    public function storeFestival(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string',
+                'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                'location' => 'required|string',
+                'date' => 'required|date',
+                'description' => 'required|string',
+                'price' => 'required|numeric',
+                'tickets' => 'required|integer',
+                'status' => 'required|string|in:active,inactive',
+            ]);
+
+            $imagePath = $request->file('image')->storeAs(
+                'festival_pictures',
+                $request->name . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension(),
+                'public'
+            );
+
+            Festival::create([
+                'name' => $request->name,
+                'location' => $request->location,
+                'date' => $request->date,
+                'description' => $request->description,
+                'image' => $imagePath,
+                'price' => $request->price,
+                'tickets' => $request->tickets,
+                'status' => $request->status,
+            ]);
+
+            return redirect()->route('admin.index')->with('success', 'Festival created successfully!');
+        } catch (\Exception $e) {
+            Log::error('Error saving festival: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Unable to save festival. Please try again.']);
+        }
+    }
+
 }
 

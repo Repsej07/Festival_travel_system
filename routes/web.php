@@ -47,7 +47,7 @@ Route::get('/admin/searchusers', [AdminController::class, 'searchUsers'])->name(
 Route::get('/admin/searchfestivals', [AdminController::class, 'searchFestivals'])->name('admin.searchfestivals');
 Route::get('/admin/searchbusreizen', [AdminController::class, 'searchBusreizen'])->name('admin.searchbusreizen');
 Route::get('/admin/festivals/create', [AdminController::class, 'createFestival'])->name('admin.festivals.create');
-Route::get('/admin/festivals/store', [AdminController::class, 'storeFestival'])->name('admin.festivals.store');
+Route::post('/admin/festivals/store', [AdminController::class, 'storeFestival'])->name('admin.festivals.store');
 Route::get('/admin/busreizen/create', [AdminController::class, 'createBusreis'])->name('admin.busreizen.create');
 Route::get('/admin/user/create', [AdminController::class, 'createUser'])->name('admin.user.create');
 require __DIR__ . '/auth.php';
