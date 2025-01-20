@@ -53,7 +53,7 @@ class RegisteredUserController extends Controller
             'last_name' => $request->last_name,
             'username' => $request->username,
             'email' => $request->email,
-            'admin' => false,
+            'admin' => $request->has('admin') ? $request->admin : false,
             'password' => Hash::make($request->password),
             'profile_picture' => $imagePath, // Store the file path in the DB
         ]);

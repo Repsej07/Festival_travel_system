@@ -22,6 +22,12 @@ export default {
                 'placeholder': '#2D3648',
                 'background_grey': '#DADADA'
             },
+            fontSize: {
+                'xxs': '0.625rem',
+                '3xs': '0.5rem',
+                '4xs': '0.375rem',
+                '5xs': '0.25rem',
+            },
             width: {
                 '128': '32rem',
               },
