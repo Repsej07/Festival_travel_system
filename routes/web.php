@@ -70,4 +70,5 @@ Route::get('/admin/user/{user}/edit', [AdminController::class, 'editUser'])->nam
 Route::patch('/admin/user/{user}', [AdminController::class, 'updateUser'])->name('admin.user.update');
 Route::post('/admin/user/store', [AdminController::class, 'storeUser'])->name('admin.user.store');
 Route::delete('/admin/user/{user}', [AdminController::class, 'destroyUser'])->name('admin.user.delete');
+Route::get('/admin/user/info/{user}', [AdminController::class, 'showUser'])->name('admin.user.info');
 require __DIR__ . '/auth.php';

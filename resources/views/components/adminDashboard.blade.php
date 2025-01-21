@@ -46,7 +46,8 @@
                                                 class="ml-auto mr-3"><img src="{{ url('/assets/edit.svg') }}"
                                                     alt="edit" class="float-right">
                                             </a>
-                                            <form action="{{ route('admin.festival.delete', $festival->id) }}" method="POST"
+                                            <form action="{{ route('admin.festival.delete', $festival->id) }}"
+                                                method="POST"
                                                 onsubmit="return confirm('Are you sure you want to delete this festival?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -188,6 +189,10 @@
                                                 class="h-6 w-6">
                                         </button>
                                     </form>
+
+                                    <a href="{{ route('admin.user.info', $user->id) }}">
+                                        <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                    </a>
                                 </div>
 
                             </div>

@@ -284,7 +284,7 @@ class AdminController extends Controller
     public function updateUser(User $user){
         if (request('role') == 'admin'){
             $role = true;
-        } else if (request('role') == 'user' || request('role') == 'null'){
+        } else if (request('role') == 'client'){
             $role = false;
         }
         $user->update([
@@ -444,5 +444,12 @@ class AdminController extends Controller
     public function destroyBusreis(Busreizen $busreis){
         $busreis->delete();
         return redirect(route('admin.index'));
+    }
+
+    public function showUser(User $user){
+
+        $user->load('festivals');
+
+        return view('admin.userInfo', ['user' => $user]);
     }
 }
