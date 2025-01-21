@@ -278,6 +278,25 @@ class AdminController extends Controller
         return redirect(route('admin.index'));
     }
 
+    public function editUser(User $user){
+        return view('admin.editUser', ['user' => $user]);
+    }
+    public function updateUser(User $user){
+        if (request('role') == 'admin'){
+            $role = true;
+        } else if (request('role') == 'user' || request('role') == 'null'){
+            $role = false;
+        }
+        $user->update([
+            'first_name' => request('first_name'),
+            'last_name' => request('last_name'),
+            'username' => request('username'),
+            'email' => request('email'),
+            'admin' => $role,
+        ]);
+        return redirect(route('admin.index'));
+    }
+
 
     public function searchUsers(Request $request)
     {
@@ -413,5 +432,17 @@ class AdminController extends Controller
         return redirect(route('admin.index'));
 
 
+    }
+    public function destroyUser(User $user){
+        $user->delete();
+        return redirect(route('admin.index'));
+    }
+    public function destroyFestival(Festival $festival){
+        $festival->delete();
+        return redirect(route('admin.index'));
+    }
+    public function destroyBusreis(Busreizen $busreis){
+        $busreis->delete();
+        return redirect(route('admin.index'));
     }
 }

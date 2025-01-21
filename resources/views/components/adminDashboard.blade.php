@@ -42,8 +42,18 @@
                                         <li>Tickets left: {{ $festival->tickets }}</li>
                                         <div class="flex flex-row w-full">
                                             <li>Status: {{ $festival->status }}</li>
-                                            <a href="{{ route('admin.festival.edit', $festival->id) }}" class="ml-auto mr-3"><img
-                                                    src="{{ url('/assets/edit.svg') }}" alt="edit" class="float-right"></a>
+                                            <a href="{{ route('admin.festival.edit', $festival->id) }}"
+                                                class="ml-auto mr-3"><img src="{{ url('/assets/edit.svg') }}"
+                                                    alt="edit" class="float-right">
+                                            </a>
+                                            <form action="{{ route('admin.festival.delete', $festival->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this festival?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit">
+                                                    <img src="{{ url('/assets/delete.svg') }}" alt="delete"
+                                                        class="float-right">
+                                                </button>
                                         </div>
                                     </div>
 
@@ -81,7 +91,7 @@
                 @if (isset($busreizen) && count($busreizen) > 0)
                     <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
                         @foreach ($busreizen as $busreis)
-                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
+                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
                                     <li>
                                     <li class="flex items-center">{{ $busreis->departure }} - {{ $busreis->arrival }}
@@ -89,16 +99,26 @@
                                 </div>
                                 <hr class="border-1 border-black">
                                 <div class="flex flex-col items-start mt-3 ml-3">
-                                    <li>Departure: {{ $busreis->departure_date }} - {{ $busreis->departure_time }}</li>
+                                    <li>Departure: {{ $busreis->departure_date }} - {{ $busreis->departure_time }}
+                                    </li>
                                     <li>Arrival: {{ $busreis->arrival_date }} - {{ $busreis->arrival_time }}</li>
                                     <li>Festival: {{ $busreis->festival->name ?? 'No festival assigned' }}</li>
                                     <div class="flex flex-row justify-between items-end w-full">
                                         <!-- Optional additional details here -->
                                         <a href="{{ route('admin.busreis.edit', $busreis->id) }}"
-                                           class="ml-auto mb-1">
+                                            class="ml-auto mb-1 mr-3">
                                             <img src="{{ url('/assets/edit.svg') }}" alt="edit"
-                                                 class="object-right-bottom">
+                                                class="object-right-bottom">
                                         </a>
+
+                                        <form action="{{ route('admin.busreis.delete', $busreis->id) }}" method="POST"
+                                            onsubmit="return confirm('Are you sure you want to delete this busreis?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit">
+                                                <img src="{{ url('/assets/delete.svg') }}" alt="delete"
+                                                    class="object-right-bottom">
+                                            </button>
                                     </div>
                                 </div>
 
@@ -135,7 +155,7 @@
                 @if (isset($users) && count($users) > 0)
                     <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
                         @foreach ($users as $user)
-                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
+                            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
                                     <li><img src="{{ asset("storage/{$user->profile_picture}") }}"
                                             alt="Profile Picture" class="h-10 w-10 rounded-full mr-5"></li>
@@ -152,6 +172,24 @@
                                         @endif
                                     </li>
                                 </div>
+                                <div class="flex flex-row items-center justify-end w-full space-x-4">
+                                    <!-- Edit Button -->
+                                    <a href="{{ route('admin.user.edit', $user->id) }}">
+                                        <img src="{{ url('/assets/edit.svg') }}" alt="edit" class="h-6 w-6">
+                                    </a>
+
+                                    <!-- Delete Button -->
+                                    <form action="{{ route('admin.user.delete', $user->id) }}" method="POST"
+                                        onsubmit="return confirm('Are you sure you want to delete this user?')">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <img src="{{ url('/assets/delete.svg') }}" alt="delete"
+                                                class="h-6 w-6">
+                                        </button>
+                                    </form>
+                                </div>
+
                             </div>
                         @endforeach
                     </ul>
