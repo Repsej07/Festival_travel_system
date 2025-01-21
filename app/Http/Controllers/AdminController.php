@@ -251,6 +251,15 @@ class AdminController extends Controller
         ]);
         return redirect(route('admin.index'));
     }
+
+    public function editBusreis(Busreizen $busreis){
+        $festivals = Festival::all();
+        $departureDateTime = $busreis->departure_date . 'T' . $busreis->departure_time;
+        $arrivalDateTime = $busreis->arrival_date . 'T' . $busreis->arrival_time;
+        return view('admin.editBusreis', ['busreis' => $busreis, 'festivals' => $festivals, 'departureDateTime' => $departureDateTime, 'arrivalDateTime'=>$arrivalDateTime], ['locations' => $this->locations],);
+    }
+
+
     public function searchUsers(Request $request)
     {
         $search = $request->input('search');

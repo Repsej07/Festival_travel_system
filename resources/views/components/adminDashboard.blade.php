@@ -89,11 +89,19 @@
                                 </div>
                                 <hr class="border-1 border-black">
                                 <div class="flex flex-col items-start mt-3 ml-3">
-                                    <li>Departure: {{ $busreis->departure_date }} - {{ $busreis->departure_time }}
-                                    </li>
+                                    <li>Departure: {{ $busreis->departure_date }} - {{ $busreis->departure_time }}</li>
                                     <li>Arrival: {{ $busreis->arrival_date }} - {{ $busreis->arrival_time }}</li>
                                     <li>Festival: {{ $busreis->festival->name ?? 'No festival assigned' }}</li>
+                                    <div class="flex flex-row justify-between items-end w-full">
+                                        <!-- Optional additional details here -->
+                                        <a href="{{ route('admin.busreis.edit', $busreis->id) }}"
+                                           class="ml-auto mb-1">
+                                            <img src="{{ url('/assets/edit.svg') }}" alt="edit"
+                                                 class="object-right-bottom">
+                                        </a>
+                                    </div>
                                 </div>
+
                             </div>
                         @endforeach
                     </ul>
