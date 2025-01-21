@@ -259,6 +259,25 @@ class AdminController extends Controller
         return view('admin.editBusreis', ['busreis' => $busreis, 'festivals' => $festivals, 'departureDateTime' => $departureDateTime, 'arrivalDateTime'=>$arrivalDateTime], ['locations' => $this->locations],);
     }
 
+    public function updateBusreis(Busreizen $busreis){
+        // Get the festival location
+        $festival = Festival::findOrFail(request('festival_id'));
+        // Create a new Busreizen record
+        $departure = explode('T', request('departure_date'));
+        $arrival = explode('T', request('arrival_date'));
+
+        $busreis->update([
+            'departure' => request('departure'),
+            'departure_date' => $departure[0],  // YYYY-MM-DD
+            'departure_time' => $departure[1],  // HH:MM
+            'arrival_date' => $arrival[0],      // YYYY-MM-DD
+            'arrival_time' => $arrival[1],      // HH:MM
+            'arrival' => $festival->location,   // Get the festival location
+            'festival_id' => request('festival_id'),
+        ]);
+        return redirect(route('admin.index'));
+    }
+
 
     public function searchUsers(Request $request)
     {
@@ -294,7 +313,6 @@ class AdminController extends Controller
 
             // Get the festival location
             $festival = Festival::findOrFail($request->festival_id);
-            $arrival = $festival->location; // Use the location of the festival
 
             // Extract date and time from the datetime string (T separated format)
             $departure = explode('T', $request->departure_date);

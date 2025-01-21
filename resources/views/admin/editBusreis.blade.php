@@ -6,7 +6,7 @@
             <div class="flex flex-row space-x-5 p-5">
                 <form action="{{ route('admin.busreis.update', ['busreis' => $busreis->id])}}" method="POST" class="p-5 grid grid-cols-2 gap-5">
                     @csrf
-                    @method('PUT')
+                    @method('PATCH')
 
                     <!-- Festival Dropdown -->
                     <div class="flex flex-col col-span-2 md:col-span-1">
@@ -46,14 +46,4 @@
             </div>
         </div>
     </div>
-
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var departureInput = document.getElementById('departure_date');
-            var arrivalInput = document.getElementById('arrival_date');
-            var now = new Date().toISOString().slice(0, 16);
-            departureInput.setAttribute('min', now);
-            arrivalInput.setAttribute('min', now);
-        });
-    </script> --}}
 </x-app-layout>
