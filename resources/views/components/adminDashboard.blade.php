@@ -1,16 +1,15 @@
-<div class="flex flex-row max-w-screen mt-10 justify-center">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<div class="flex flex-row max-w-screen mt-10 justify-center">
     <div class="flex flex-row w-[80vw] justify-between" id="3_lower_blocks">
         <!-- Festivals Section -->
-        <div class="w-80 h-128 bg-system_gray_light rounded-lg" x-data="{ open: false }"
+        <div class="w-80 h-128 bg-system_gray_light rounded-lg" x-data="{ open: false }" id="main_content"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
-            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" @click="open = !open">
+            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer"">
                 <p class="font-bold mr-4">Festivals</p>
-                <form action="{{ route('admin.index') }}" method="GET">
-                    <input type="text" name="search" placeholder="Search"
-                        class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
-                </form>
-                <span>
+                <input type="text" name="search" id="search" placeholder="Search festivals..."
+                    class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
+                <span @click="open = !open">
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-1"
                         :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;">
                 </span>
@@ -24,7 +23,7 @@
                     </a>
                 </div>
                 @if (isset($festivals) && count($festivals) > 0)
-                    <ul class="overflow-scroll h-123 mt-1 rounded-lg">
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg" id="all_festivals">
                         @foreach ($festivals as $festival)
                             @if ($festival->status == 'active' || $festival->status == 'sold')
                                 <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
@@ -57,7 +56,8 @@
                                                 </button>
 
                                                 <a href="{{ route('admin.festival.info', $festival->id) }}">
-                                                    <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                                    <img src="{{ url('/assets/info.svg') }}" alt="info"
+                                                        class="h-6 w-6">
                                                 </a>
                                         </div>
                                     </div>
@@ -65,6 +65,12 @@
                                 </div>
                             @endif
                         @endforeach
+
+                    </ul>
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg">
+                        <li id="searched_festivals">
+                        </li>
+
                     </ul>
                 @else
                     <p>No festivals found</p>
@@ -214,3 +220,33 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $('#search').on('keyup', function() {
+        $value = $(this).val();
+        if ($value) {
+            $('#all_festivals').hide();
+            $('#searched_festivals').show();
+        } else {
+            $('#all_festivals').show();
+            $('#searched_festivals').hide();
+        }
+
+        $.ajax({
+
+            type: 'get',
+            url: '{{ URL::to('/admin/searchfestivals') }}',
+            data: {
+                'search': $value
+            },
+
+            success: function(data) {
+                console.log(data);
+
+                $('#searched_festivals').html(data);
+
+            }
+
+
+        })
+    })
+</script>

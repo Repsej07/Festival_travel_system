@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchController;
+use App\Models\Festival;
 
 // Default route that redirects based on user roles
 Route::get('/', function () {
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function () {
 
 // Admin-specific resource routes
 Route::resource('admin', AdminController::class)
-    ->only(['index', 'store', 'searchusers'])
+    ->only(['index', 'store', 'searchusers', 'searchFestivals'])
     ->middleware(['auth', 'verified', 'admin']);
 Route::get('/admin/searchusers', [AdminController::class, 'searchUsers'])->name('admin.searchusers');
 Route::get('/admin/searchfestivals', [AdminController::class, 'searchFestivals'])->name('admin.searchfestivals');
@@ -73,4 +75,7 @@ Route::patch('/admin/user/{user}', [AdminController::class, 'updateUser'])->name
 Route::post('/admin/user/store', [AdminController::class, 'storeUser'])->name('admin.user.store');
 Route::delete('/admin/user/{user}', [AdminController::class, 'destroyUser'])->name('admin.user.delete');
 Route::get('/admin/user/info/{user}', [AdminController::class, 'showUser'])->name('admin.user.info');
+
+// Route::get('/searchFestivals', [SearchController::class, 'searchFestivals'])->name('searchFestivals');
+// routes/web.php
 require __DIR__ . '/auth.php';

@@ -244,9 +244,9 @@ class AdminController extends Controller
     {
         if (request()->hasFile('image')) {
             $imagePath = request()->file('image')->storeAs(
-            'festival_pictures',
-            request()->name . '_' . time() . '.' . request()->file('image')->getClientOriginalExtension(),
-            'public'
+                'festival_pictures',
+                request()->name . '_' . time() . '.' . request()->file('image')->getClientOriginalExtension(),
+                'public'
             );
             $festival->image = $imagePath;
         } else {
@@ -324,11 +324,58 @@ class AdminController extends Controller
     }
 
     public function searchFestivals(Request $request)
-    {
-        $search = $request->input('search');
-        $results = Festival::where('name', 'like', '%' . $search . '%')->get();
-        return view('admin.festivals', ['festivals' => $results]);
+{
+    $festivals = Festival::where('name', 'like', '%' . $request->input('search') . '%')
+        ->orWhere('location', 'like', '%' . $request->input('search') . '%')
+        ->orWhere('date', 'like', '%' . $request->input('search') . '%')
+        ->get();
+
+    $output = '';
+
+    foreach ($festivals as $festival) {
+        if ($festival->status == 'active' || $festival->status == 'sold') {
+            $output .= '
+                <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
+                    <div class="flex flex-row mt-3 ml-3 mb-3">
+                        <li><img src="' . asset("storage/{$festival->image}") . '"
+                                alt="Festival Picture" class="h-10 w-10 mr-5"></li>
+                        <li class="flex items-center">' . htmlspecialchars($festival->name) . '</li>
+                    </div>
+                    <hr class="border-1 border-black">
+                    <div class="flex flex-col items-start mt-3 ml-3">
+                        <li>Location: ' . htmlspecialchars($festival->location) . '</li>
+                        <li>Date: ' . htmlspecialchars($festival->date) . '</li>
+                        <li>Price: € ' . htmlspecialchars($festival->price) . '</li>
+                        <li>Tickets left: ' . htmlspecialchars($festival->tickets) . '</li>
+                        <div class="flex flex-row w-full">
+                            <li>Status: ' . htmlspecialchars($festival->status) . '</li>
+                            <a href="' . route('admin.festival.edit', $festival->id) . '"
+                                class="ml-auto mr-3"><img src="' . url('/assets/edit.svg') . '"
+                                    alt="edit" class="float-right">
+                            </a>
+                            <form action="' . route('admin.festival.delete', $festival->id) . '"
+                                method="POST"
+                                onsubmit="return confirm(\'Are you sure you want to delete this festival?\')">
+                                ' . csrf_field() . '
+                                ' . method_field('DELETE') . '
+                                <button type="submit">
+                                    <img src="' . url('/assets/delete.svg') . '" alt="delete"
+                                        class="float-right">
+                                </button>
+                            </form>
+                            <a href="' . route('admin.festival.info', $festival->id) . '">
+                                <img src="' . url('/assets/info.svg') . '" alt="info" class="h-6 w-6">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            ';
+        }
     }
+
+    return response($output);
+}
+
 
     public function searchBusreizen(Request $request)
     {
