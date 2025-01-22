@@ -236,13 +236,27 @@ class AdminController extends Controller
     {
         //
     }
-    public function editFestival(Festival $festival){
+    public function editFestival(Festival $festival)
+    {
         return view('admin.editFestival', ['festival' => $festival]);
     }
-    public function updateFestival(Festival $festival){
+    public function updateFestival(Festival $festival)
+    {
+        if (request()->hasFile('image')) {
+            $imagePath = request()->file('image')->storeAs(
+            'festival_pictures',
+            request()->name . '_' . time() . '.' . request()->file('image')->getClientOriginalExtension(),
+            'public'
+            );
+            $festival->image = $imagePath;
+        } else {
+            $imagePath = $festival->image;
+        }
+
         $festival->update([
             'name' => request('name'),
             'location' => request('location'),
+            'image' => $imagePath,
             'date' => request('date'),
             'description' => request('description'),
             'price' => request('price'),
@@ -252,14 +266,16 @@ class AdminController extends Controller
         return redirect(route('admin.index'));
     }
 
-    public function editBusreis(Busreizen $busreis){
+    public function editBusreis(Busreizen $busreis)
+    {
         $festivals = Festival::all();
         $departureDateTime = $busreis->departure_date . 'T' . $busreis->departure_time;
         $arrivalDateTime = $busreis->arrival_date . 'T' . $busreis->arrival_time;
-        return view('admin.editBusreis', ['busreis' => $busreis, 'festivals' => $festivals, 'departureDateTime' => $departureDateTime, 'arrivalDateTime'=>$arrivalDateTime], ['locations' => $this->locations],);
+        return view('admin.editBusreis', ['busreis' => $busreis, 'festivals' => $festivals, 'departureDateTime' => $departureDateTime, 'arrivalDateTime' => $arrivalDateTime], ['locations' => $this->locations],);
     }
 
-    public function updateBusreis(Busreizen $busreis){
+    public function updateBusreis(Busreizen $busreis)
+    {
         // Get the festival location
         $festival = Festival::findOrFail(request('festival_id'));
         // Create a new Busreizen record
@@ -278,13 +294,15 @@ class AdminController extends Controller
         return redirect(route('admin.index'));
     }
 
-    public function editUser(User $user){
+    public function editUser(User $user)
+    {
         return view('admin.editUser', ['user' => $user]);
     }
-    public function updateUser(User $user){
-        if (request('role') == 'admin'){
+    public function updateUser(User $user)
+    {
+        if (request('role') == 'admin') {
             $role = true;
-        } else if (request('role') == 'client'){
+        } else if (request('role') == 'client') {
             $role = false;
         }
         $user->update([
@@ -393,7 +411,8 @@ class AdminController extends Controller
         }
     }
 
-    public function storeUser(Request $request){
+    public function storeUser(Request $request)
+    {
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -412,9 +431,9 @@ class AdminController extends Controller
 
         $admin = false; // Default value
 
-        if ($request->role == 'admin'){
+        if ($request->role == 'admin') {
             $admin = true;
-        } else if ($request->role == 'user' || $request->role == 'null'){
+        } else if ($request->role == 'user' || $request->role == 'null') {
             $admin = false;
         }
 
@@ -430,26 +449,45 @@ class AdminController extends Controller
         ]);
 
         return redirect(route('admin.index'));
-
-
     }
-    public function destroyUser(User $user){
+    public function destroyUser(User $user)
+    {
         $user->delete();
         return redirect(route('admin.index'));
     }
-    public function destroyFestival(Festival $festival){
+    public function destroyFestival(Festival $festival)
+    {
         $festival->delete();
         return redirect(route('admin.index'));
     }
-    public function destroyBusreis(Busreizen $busreis){
+    public function destroyBusreis(Busreizen $busreis)
+    {
         $busreis->delete();
         return redirect(route('admin.index'));
     }
 
-    public function showUser(User $user){
+    public function showUser(User $user)
+    {
 
         $user->load('festivals');
 
         return view('admin.userInfo', ['user' => $user]);
+    }
+
+    public function showBusreis(Busreizen $busreis)
+    {
+        $route = [
+            'origin' => $busreis->departure,
+            'destination' => $busreis->arrival,
+        ];
+        return view('admin.busreisInfo', [
+            'busreis' => $busreis,
+            'route' => $route,
+        ]);
+    }
+
+    public function showFestival(Festival $festival)
+    {
+        return view('admin.festivalInfo', ['festival' => $festival]);
     }
 }

@@ -29,7 +29,7 @@
                             @if ($festival->status == 'active' || $festival->status == 'sold')
                                 <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
                                     <div class="flex flex-row mt-3 ml-3 mb-3">
-                                        <li><img src="{{ asset("storage/{$festival->image}") }}" alt="Profile Picture"
+                                        <li><img src="{{ asset("storage/{$festival->image}") }}" alt="Festival Picture"
                                                 class="h-10 w-10 mr-5"></li>
                                         <li class="flex items-center">{{ $festival->name }}</li>
                                     </div>
@@ -55,6 +55,10 @@
                                                     <img src="{{ url('/assets/delete.svg') }}" alt="delete"
                                                         class="float-right">
                                                 </button>
+
+                                                <a href="{{ route('admin.festival.info', $festival->id) }}">
+                                                    <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                                </a>
                                         </div>
                                     </div>
 
@@ -120,6 +124,11 @@
                                                 <img src="{{ url('/assets/delete.svg') }}" alt="delete"
                                                     class="object-right-bottom">
                                             </button>
+                                        </form>
+
+                                        <a href="{{ route('admin.busreis.info', $busreis->id) }}">
+                                            <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                        </a>
                                     </div>
                                 </div>
 

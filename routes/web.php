@@ -54,6 +54,7 @@ Route::post('/admin/festivals/store', [AdminController::class, 'storeFestival'])
 Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFestival'])->name('admin.festival.edit');
 Route::patch('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.festival.update');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'destroyFestival'])->name('admin.festival.delete');
+Route::get('/admin/festivals/info/{festival}', [AdminController::class, 'showFestival'])->name('admin.festival.info');
 
 // Admin-specific busreizen routes
 
@@ -62,6 +63,7 @@ Route::post('/admin/busreizen/store', [AdminController::class, 'storeBusreis'])-
 Route::get('/admin/busreizen/{busreis}/edit', [AdminController::class, 'editBusreis'])->name('admin.busreis.edit');
 Route::patch('/admin/busreizen/{busreis}', [AdminController::class, 'updateBusreis'])->name('admin.busreis.update');
 Route::delete('/admin/busreizen/{busreis}', [AdminController::class, 'destroyBusreis'])->name('admin.busreis.delete');
+Route::get('/admin/busreizen/info/{busreis}', [AdminController::class, 'showBusreis'])->name('admin.busreis.info');
 
 // Admin-specific user routes
 
