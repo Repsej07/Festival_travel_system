@@ -1,13 +1,13 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<div class="flex flex-row max-w-screen mt-10 justify-center">
+<div class="flex flex-row max-w-screen mt-10 justify-center overflow-hidden">
     <div class="flex flex-row w-[80vw] justify-between" id="3_lower_blocks">
         <!-- Festivals Section -->
         <div class="w-80 h-128 bg-system_gray_light rounded-lg" x-data="{ open: false }" id="main_content"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
             <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer"">
                 <p class="font-bold mr-4">Festivals</p>
-                <input type="text" name="search" id="search" placeholder="Search festivals..."
+                <input type="text" name="search" id="search_festivals" placeholder="Search festivals..."
                     class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
                 <span @click="open = !open">
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-1"
@@ -55,7 +55,7 @@
                                                         class="float-right">
                                                 </button>
 
-                                                <a href="{{ route('admin.festival.info', $festival->id) }}">
+                                                <a href="{{ route('festival.info', $festival->id) }}">
                                                     <img src="{{ url('/assets/info.svg') }}" alt="info"
                                                         class="h-6 w-6">
                                                 </a>
@@ -81,15 +81,13 @@
         <!-- Busreizen Section -->
         <div class="bg-system_gray_light rounded-lg w-80" x-data="{ open: false }"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
-            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" @click="open = !open">
+            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" >
                 <p class="font-bold mr-4">Busreizen</p>
-                <form action="{{ route('admin.index') }}" method="GET">
-                    <input type="text" name="search" placeholder="Search"
+                    <input type="text" id="search_busreizen" placeholder="Search"
                         class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
-                </form>
                 <span>
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-1"
-                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;">
+                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;" @click="open = !open">
                 </span>
             </div>
             <div x-show="open" x-transition>
@@ -100,7 +98,7 @@
                     </a>
                 </div>
                 @if (isset($busreizen) && count($busreizen) > 0)
-                    <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80" id="all_busreizen">
                         @foreach ($busreizen as $busreis)
                             <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
@@ -141,6 +139,11 @@
                             </div>
                         @endforeach
                     </ul>
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg">
+                        <li id="searched_busreizen">
+                        </li>
+
+                    </ul>
                 @else
                     <p>Geen busreizen beschikbaar</p>
                 @endif
@@ -150,15 +153,13 @@
         <!-- Klanten Section -->
         <div class="bg-system_gray_light rounded-lg w-80" x-data="{ open: false }"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
-            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" @click="open = !open">
+            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" >
                 <p class="font-bold mr-4">Klanten</p>
-                <form action="{{ route('admin.index') }}" method="GET">
-                    <input type="text" name="search" placeholder="Search"
+                    <input type="text" id="search_users" placeholder="Search"
                         class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
-                </form>
                 <span>
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-4"
-                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;">
+                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;" @click="open = !open">
                 </span>
             </div>
             <div x-show="open" x-transition>
@@ -169,7 +170,7 @@
                     </a>
                 </div>
                 @if (isset($users) && count($users) > 0)
-                    <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80">
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg w-80" id="all_users">
                         @foreach ($users as $user)
                             <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
                                 <div class="flex flex-row mt-3 ml-3 mb-3">
@@ -213,6 +214,11 @@
                             </div>
                         @endforeach
                     </ul>
+                    <ul class="overflow-scroll h-123 mt-1 rounded-lg">
+                        <li id="searched_users">
+                        </li>
+
+                    </ul>
                 @else
                     <p>Geen klanten gevonden</p>
                 @endif
@@ -221,7 +227,7 @@
     </div>
 </div>
 <script type="text/javascript">
-    $('#search').on('keyup', function() {
+    $('#search_festivals').on('keyup', function() {
         $value = $(this).val();
         if ($value) {
             $('#all_festivals').hide();
@@ -249,4 +255,50 @@
 
         })
     })
+
+    $('#search_busreizen').on('keyup', function() {
+        $value = $(this).val();
+        if ($value) {
+            $('#all_busreizen').hide();
+            $('#searched_busreizen').show();
+        } else {
+            $('#all_busreizen').show();
+            $('#searched_busreizen').hide();
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '{{ URL::to('/admin/searchbusreizen') }}',
+            data: {
+                'search': $value
+            },
+            success: function(data) {
+                console.log(data);
+                $('#searched_busreizen').html(data);
+            }
+        });
+    });
+
+    $('#search_users').on('keyup', function() {
+        $value = $(this).val();
+        if ($value) {
+            $('#all_users').hide();
+            $('#searched_users').show();
+        } else {
+            $('#all_users').show();
+            $('#searched_users').hide();
+        }
+
+        $.ajax({
+            type: 'get',
+            url: '{{ URL::to('/admin/searchusers') }}',
+            data: {
+                'search': $value
+            },
+            success: function(data) {
+                console.log(data);
+                $('#searched_users').html(data);
+            }
+        });
+    });
 </script>

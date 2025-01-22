@@ -168,9 +168,6 @@ class AdminController extends Controller
         "Venlo",
         "Rotterdam"
     ];
-    /**
-     * Display a listing of the resource.
-     */
     public function index(): View
     {
         $users = User::all();
@@ -178,10 +175,6 @@ class AdminController extends Controller
         $busreizen = Busreizen::all();
         return view('admin.index', ['users' => $users, 'festivals' => $festivals, 'busreizen' => $busreizen]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
 
     public function createFestival(): View
     {
@@ -195,46 +188,6 @@ class AdminController extends Controller
     public function createUser(): View
     {
         return view('admin.createUser');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Festival $festival)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Festival $festival)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Festival $festival)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Festival $festival)
-    {
-        //
     }
     public function editFestival(Festival $festival)
     {
@@ -317,24 +270,71 @@ class AdminController extends Controller
 
 
     public function searchUsers(Request $request)
-    {
-        $search = $request->input('search');
-        $results = User::where('first_name', 'like', '%' . $search . '%')->get();
-        return view('admin.user', ['users' => $results]);
-    }
-
-    public function searchFestivals(Request $request)
 {
-    $festivals = Festival::where('name', 'like', '%' . $request->input('search') . '%')
-        ->orWhere('location', 'like', '%' . $request->input('search') . '%')
-        ->orWhere('date', 'like', '%' . $request->input('search') . '%')
+    // Fetch users based on the search query
+    $users = User::where('first_name', 'like', '%' . $request->input('search') . '%')
+        ->orWhere('last_name', 'like', '%' . $request->input('search') . '%')
+        ->orWhere('username', 'like', '%' . $request->input('search') . '%')
+        ->orWhere('email', 'like', '%' . $request->input('search') . '%')
         ->get();
 
+    // Initialize the output variable
     $output = '';
 
-    foreach ($festivals as $festival) {
-        if ($festival->status == 'active' || $festival->status == 'sold') {
-            $output .= '
+    // Loop through the users and generate HTML
+    foreach ($users as $user) {
+        $output .= '
+            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
+                <div class="flex flex-row mt-3 ml-3 mb-3">
+                    <li><img src="' . asset("storage/{$user->profile_picture}") . '"
+                            alt="Profile Picture" class="h-10 w-10 rounded-full mr-5"></li>
+                    <li class="flex items-center">' . htmlspecialchars($user->first_name) . ' ' . htmlspecialchars($user->last_name) . '</li>
+                </div>
+                <hr class="border-1 border-black">
+                <div class="flex flex-col items-start mt-3 ml-3">
+                    <li>Username: ' . htmlspecialchars($user->username) . ' ' . htmlspecialchars($user->points) . 'pts</li>
+                    <li>Email: ' . htmlspecialchars($user->email) . '</li>
+                    <li>Admin: ' . ($user->admin ? 'Yes' : 'No') . '</li>
+                </div>
+                <div class="flex flex-row items-center justify-end w-full space-x-4">
+                    <!-- Edit Button -->
+                    <a href="' . route('admin.user.edit', $user->id) . '">
+                        <img src="' . url('/assets/edit.svg') . '" alt="edit" class="h-6 w-6">
+                    </a>
+                    <!-- Delete Button -->
+                    <form action="' . route('admin.user.delete', $user->id) . '" method="POST"
+                        onsubmit="return confirm(\'Are you sure you want to delete this user?\')">
+                        ' . csrf_field() . '
+                        ' . method_field('DELETE') . '
+                        <button type="submit">
+                            <img src="' . url('/assets/delete.svg') . '" alt="delete" class="h-6 w-6">
+                        </button>
+                    </form>
+                    <a href="' . route('admin.user.info', $user->id) . '">
+                        <img src="' . url('/assets/info.svg') . '" alt="info" class="h-6 w-6">
+                    </a>
+                </div>
+            </div>
+        ';
+    }
+
+    // Return the HTML as a response
+    return response($output);
+}
+
+
+    public function searchFestivals(Request $request)
+    {
+        $festivals = Festival::where('name', 'like', '%' . $request->input('search') . '%')
+            ->orWhere('location', 'like', '%' . $request->input('search') . '%')
+            ->orWhere('date', 'like', '%' . $request->input('search') . '%')
+            ->get();
+
+        $output = '';
+
+        foreach ($festivals as $festival) {
+            if ($festival->status == 'active' || $festival->status == 'sold') {
+                $output .= '
                 <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-54">
                     <div class="flex flex-row mt-3 ml-3 mb-3">
                         <li><img src="' . asset("storage/{$festival->image}") . '"
@@ -363,26 +363,70 @@ class AdminController extends Controller
                                         class="float-right">
                                 </button>
                             </form>
-                            <a href="' . route('admin.festival.info', $festival->id) . '">
+                            <a href="' . route('festival.info', $festival->id) . '">
                                 <img src="' . url('/assets/info.svg') . '" alt="info" class="h-6 w-6">
                             </a>
                         </div>
                     </div>
                 </div>
             ';
+            }
         }
+
+        return response($output);
+    }
+
+
+
+    public function searchBusreizen(Request $request)
+{
+    $query = $request->input('search');
+
+    // Query the busreizen model for matching results
+    $busreizen = Busreizen::with('festival')
+        ->where('departure', 'like', '%' . $query . '%')
+        ->orWhere('arrival', 'like', '%' . $query . '%')
+        ->orWhereHas('festival', function ($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%');
+        })
+        ->get();
+
+    $output = '';
+
+    // Generate the HTML dynamically
+    foreach ($busreizen as $busreis) {
+        $output .= '
+            <div class="bg-Jesper_light text-black mt-2 rounded-lg p-1 mr-2 ml-2 h-46">
+                <div class="flex flex-row mt-3 ml-3 mb-3">
+                    <li class="flex items-center">' . htmlspecialchars($busreis->departure) . ' - ' . htmlspecialchars($busreis->arrival) . '</li>
+                </div>
+                <hr class="border-1 border-black">
+                <div class="flex flex-col items-start mt-3 ml-3">
+                    <li>Departure: ' . htmlspecialchars($busreis->departure_date) . ' - ' . htmlspecialchars($busreis->departure_time) . '</li>
+                    <li>Arrival: ' . htmlspecialchars($busreis->arrival_date) . ' - ' . htmlspecialchars($busreis->arrival_time) . '</li>
+                    <li>Festival: ' . htmlspecialchars($busreis->festival->name ?? 'No festival assigned') . '</li>
+                    <div class="flex flex-row justify-between items-end w-full">
+                        <a href="' . route('admin.busreis.edit', $busreis->id) . '" class="ml-auto mb-1 mr-3">
+                            <img src="' . url('/assets/edit.svg') . '" alt="edit" class="object-right-bottom">
+                        </a>
+                        <form action="' . route('admin.busreis.delete', $busreis->id) . '" method="POST"
+                              onsubmit="return confirm(\'Are you sure you want to delete this busreis?\')">
+                            ' . csrf_field() . method_field('DELETE') . '
+                            <button type="submit">
+                                <img src="' . url('/assets/delete.svg') . '" alt="delete" class="object-right-bottom">
+                            </button>
+                        </form>
+                        <a href="' . route('admin.busreis.info', $busreis->id) . '">
+                            <img src="' . url('/assets/info.svg') . '" alt="info" class="h-6 w-6">
+                        </a>
+                    </div>
+                </div>
+            </div>';
     }
 
     return response($output);
 }
 
-
-    public function searchBusreizen(Request $request)
-    {
-        $search = $request->input('search');
-        $results = Busreizen::where('name', 'like', '%' . $search . '%')->get();
-        return view('admin.busreizen', ['busreizen' => $results]);
-    }
 
     public function storeBusreis(Request $request)
     {
@@ -533,8 +577,5 @@ class AdminController extends Controller
         ]);
     }
 
-    public function showFestival(Festival $festival)
-    {
-        return view('admin.festivalInfo', ['festival' => $festival]);
-    }
+
 }
