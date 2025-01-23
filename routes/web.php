@@ -28,15 +28,17 @@ Route::get('/contact', function () {
 })->name('contact');
 
 // Dashboard route for authenticated non-admin users
-Route::get('/dashboard',[userDashboard::class, 'index'])->middleware(['auth', 'verified'])->name('userDashboard');
+Route::get('/dashboard', [userDashboard::class, 'index'])->middleware(['auth', 'verified'])->name('userDashboard');
 // Group routes for authenticated users
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/festivals/info{festival}', [festivalController::class, 'showFestival'])->name('festival.info');
+    Route::get('/festival/register{festival}{user}', [festivalController::class, 'registerFestival'])->name('festival.register');
 });
 
-Route::get('/festivals/info{festival}', [festivalController::class, 'showFestival'])->name('festival.info');
+
 // Admin-specific resource routes
 Route::resource('admin', AdminController::class)
     ->only(['index', 'store', 'searchusers', 'searchFestivals'])
@@ -51,6 +53,7 @@ Route::get('/admin/festivals/{festival}/edit', [AdminController::class, 'editFes
 Route::patch('/admin/festivals/{festival}', [AdminController::class, 'updateFestival'])->name('admin.festival.update');
 Route::delete('/admin/festivals/{festival}', [AdminController::class, 'destroyFestival'])->name('admin.festival.delete');
 Route::get('/admin/festivals/info/{festival}', [AdminController::class, 'showFestival'])->name('admin.festival.info');
+
 // Admin-specific busreizen routes
 Route::get('/admin/busreizen/create', [AdminController::class, 'createBusreis'])->name('admin.busreizen.create');
 Route::post('/admin/busreizen/store', [AdminController::class, 'storeBusreis'])->name('admin.busreizen.store');
