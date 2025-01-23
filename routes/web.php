@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/festivals/info{festival}', [festivalController::class, 'showFestival'])->name('festival.info');
     Route::get('/festival/register{festival}{user}', [festivalController::class, 'registerFestival'])->name('festival.register');
+    Route::get('/festival/unregister{festival}{user}', [festivalController::class, 'unregisterFestival'])->name('festival.unregister');
 });
 
 

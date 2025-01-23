@@ -13,8 +13,11 @@ class festivalController extends Controller
         return view('festival.festivalInfo', ['festival' => $festival]);
     }
     public function registerFestival(Festival $festival, User $user){
-        
+        return view('festival.festivalRegister', ['festival' => $festival, 'user' => $user]);
 
-
+    }
+    public function unregisterFestival(Festival $festival, User $user){
+        $user->festivals()->detach($festival);
+        return redirect()->route('userDashboard');
     }
 }
