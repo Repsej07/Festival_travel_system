@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // Auto-incrementing primary key
             $table->unsignedBigInteger('user_id'); // Foreign key for users
             $table->unsignedBigInteger('festival_id'); // Foreign key for trips
+            $table->string('departure');
             $table->timestamps(); // created_at and updated_at columns
 
             // Foreign key constraints

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Festival;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Busreizen;
 
 class festivalController extends Controller
 {
@@ -14,10 +15,14 @@ class festivalController extends Controller
         return view('festival.festivalInfo', ['festival' => $festival]);
     }
     public function indexRegisterFestival(Festival $festival, User $user){
-        return view('festival.festivalRegister', ['festival' => $festival, 'user' => $user]);
+        $user = Auth::user();
+        $points = $user->points;
+        $busreizen = Busreizen::where('festival_id', $festival->id)->get();
+        return view('festival.festivalRegister', ['festival' => $festival, 'user' => $user, 'points' => $points, 'busreizen' => $busreizen]);
 
     }
     public function RegisterFestival(Festival $festival, User $user, Request $request){
+        $departure = $request->input('departure');
         $points = $request->input('points');
         $festival->tickets = $festival->tickets - 1;
 
@@ -28,7 +33,8 @@ class festivalController extends Controller
         }
         $user->points = $user->points - $points;
         $user->save();
-        $user->festivals()->attach($festival);
+
+        $user->festivals()->attach($festival, ['departure' => $departure]);
         return redirect()->route('userDashboard');
     }
     public function unregisterFestival(Festival $festival, User $user){

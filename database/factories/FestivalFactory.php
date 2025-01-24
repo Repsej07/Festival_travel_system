@@ -46,5 +46,5 @@ class FestivalFactory extends Factory
             'status' => fake()->randomElement(['active', 'cancelled', 'completed', 'sold']),
         ];
     }
-    //\App\Models\Festival::factory()->count(10)->create();
+    //\App\Models\Festival::factory()->count(15)->create();
 }

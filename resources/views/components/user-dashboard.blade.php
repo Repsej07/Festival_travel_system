@@ -1,5 +1,4 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <div class="py-12">
     <div class="w-full mx-auto sm:px-6 lg:px-8">
         <div class="bg-system_gray shadow-sm sm:rounded-lg h-144 overflow-scroll">
