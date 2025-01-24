@@ -81,13 +81,14 @@
         <!-- Busreizen Section -->
         <div class="bg-system_gray_light rounded-lg w-80" x-data="{ open: false }"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
-            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" >
+            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer">
                 <p class="font-bold mr-4">Busreizen</p>
-                    <input type="text" id="search_busreizen" placeholder="Search"
-                        class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
+                <input type="text" id="search_busreizen" placeholder="Search"
+                    class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
                 <span>
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-1"
-                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;" @click="open = !open">
+                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;"
+                        @click="open = !open">
                 </span>
             </div>
             <div x-show="open" x-transition>
@@ -153,13 +154,14 @@
         <!-- Klanten Section -->
         <div class="bg-system_gray_light rounded-lg w-80" x-data="{ open: false }"
             x-bind:style="open ? 'height: 36rem;' : 'height: 3rem;'">
-            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer" >
+            <div class="flex flex-row items-center mt-3 ml-3 cursor-pointer">
                 <p class="font-bold mr-4">Klanten</p>
-                    <input type="text" id="search_users" placeholder="Search"
-                        class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
+                <input type="text" id="search_users" placeholder="Search"
+                    class="w-45 h-6 bg-Jesper_light rounded-md text-white bg-search bg-no-repeat bg-left pl-5 placeholder-placeholder">
                 <span>
                     <img src="{{ url('/assets/dropdown_arrow.svg') }}" alt="arrow" class="ml-4"
-                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;" @click="open = !open">
+                        :class="open ? 'rotate-0' : 'rotate-180'" style="transition: transform 0.3s;"
+                        @click="open = !open">
                 </span>
             </div>
             <div x-show="open" x-transition>

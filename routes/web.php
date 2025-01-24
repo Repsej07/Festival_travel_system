@@ -35,8 +35,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/festivals/info{festival}', [festivalController::class, 'showFestival'])->name('festival.info');
-    Route::get('/festival/register{festival}{user}', [festivalController::class, 'registerFestival'])->name('festival.register');
+    Route::get('/festival/register{festival}/{user}/index', [festivalController::class, 'indexRegisterFestival'])->name('festival.register.index');
+    Route::post('/festival/register{festival}/{user}', [festivalController::class, 'RegisterFestival'])->name('festival.register');
     Route::get('/festival/unregister{festival}{user}', [festivalController::class, 'unregisterFestival'])->name('festival.unregister');
+    Route::get('/festival/search', [festivalController::class, 'searchFestivals'])->name('festival.search');
 });
 
 

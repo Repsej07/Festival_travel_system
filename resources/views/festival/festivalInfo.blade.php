@@ -13,7 +13,8 @@
             </div>
             <div class="flex flex-row">
                 <img src="{{ asset("storage/{$festival->image}") }}" alt="Festival Picture" class="h-96 max-h-30 mr-5 ml-3 rounded-lg">
-                <textarea class="w-[50vw] max-h-96 ml-40 bg-transparent border-none resize-none">{{$festival->description}}</textarea>
+                <textarea class="w-[50vw] max-h-96 ml-40 bg-transparent border-none resize-none outline-none"  disabled
+                readonly>{{$festival->description}}</textarea>
             </div>
 
         </div>
