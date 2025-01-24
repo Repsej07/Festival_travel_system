@@ -57,4 +57,11 @@ class adminTest extends TestCase
      * @return void
      */
 
+
+        $response = $this->actingAs($adminUser)->get("/admin/searchusers?search={$searchTerm}");
+        $response->assertStatus(200);
+        $results = $response->json('users');
+        $this->assertTrue(collect($results)->contains('name', 'John Doe') && !collect($results)->contains('name', 'Jane Doe'));
+    }
+
 }
