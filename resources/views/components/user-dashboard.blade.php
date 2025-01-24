@@ -17,7 +17,7 @@
                             @if ($festival->status == 'active' || $festival->users->contains(Auth::user()->id))
                                 <li class="h-60 w-[98%] bg-system_gray_light mt-4 mx-auto rounded-lg flex flex-row">
                                     <div class="ml-2 pt-2 mb-3 flex flex-col">
-                                        <h1 class="text-3xl">{{ $festival->name }}</h1>
+                                        <h1 class="text-3xl w-128">{{ $festival->name }}</h1>
                                         <img src="{{ asset("storage/{$festival->image}") }}" alt="Festival Picture"
                                             class="h-40 w-40">
                                     </div>

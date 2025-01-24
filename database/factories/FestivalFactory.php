@@ -39,11 +39,11 @@ class FestivalFactory extends Factory
             'name' => fake()->unique()->words(3, true) . ' Festival',
             'location' => $locationCity,
             'date' => fake()->dateTimeBetween('+1 week', '+1 year'),
-            'description' => fake()->paragraph(3),
-            'image' => fake()->imageUrl(640, 480, 'festival', true, 'Festival'),
+            'description' => fake()->paragraph(75),
+            'image' => 'festival_pictures/festival.png',
             'price' => fake()->randomFloat(2, 0, 500), // Prices between 0 (free) and 500
             'tickets' => fake()->numberBetween(50, 1000), // Ticket count between 50 and 1000
-            'status' => fake()->randomElement(['active', 'cancelled', 'completed', 'sold']),
+            'status' => 'active',
         ];
     }
     //\App\Models\Festival::factory()->count(15)->create();
