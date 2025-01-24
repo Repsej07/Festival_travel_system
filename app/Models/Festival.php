@@ -18,4 +18,10 @@ class Festival extends Model
         'tickets',
         'status',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_trips', 'festival_id', 'user_id')
+            ->withTimestamps();
+    }
 }
