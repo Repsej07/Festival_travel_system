@@ -22,8 +22,15 @@ export default {
                 'placeholder': '#2D3648',
                 'background_grey': '#DADADA'
             },
+            fontSize: {
+                'xxs': '0.625rem',
+                '3xs': '0.5rem',
+                '4xs': '0.375rem',
+                '5xs': '0.25rem',
+            },
             width: {
                 '128': '32rem',
+                '24': '6rem',
               },
             height:{
                 '122': '30.5rem',
@@ -43,6 +50,7 @@ export default {
                 '114': '28.5rem',
                 '150': '37.5rem',
                 '160': '40rem',
+                '54': '13.5rem',
             },
             fontSize: {
                 sm: '0.8rem',
@@ -52,6 +60,7 @@ export default {
                 '3xl': '1.953rem',
                 '4xl': '2.441rem',
                 '10xl': '7rem',
+                '6xl': '3.75rem',
               },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
