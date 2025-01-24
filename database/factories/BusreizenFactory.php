@@ -36,20 +36,19 @@ class BusreizenFactory extends Factory
         ];
 
         $departureCity = $this->faker->randomElement($dutchCitiesAndTowns);
-        $arrivalCity = $this->faker->randomElement(array_diff($dutchCitiesAndTowns, [$departureCity]));
 
         $departureDate = $this->faker->dateTimeBetween('-1 week', '+1 week');
         $arrivalDate = $this->faker->dateTimeBetween($departureDate, $departureDate->format('Y-m-d H:i:s').' +2 days');
-
+        $festival_id = \App\Models\Festival::inRandomOrder()->first()->id;
         return [
             'departure' => $departureCity,
-            'arrival' => $arrivalCity,
+            'festival_id' => $festival_id,
+            'arrival' => \App\Models\Festival::find($festival_id)->location,
             'departure_date' => $departureDate,
             'arrival_date' => $arrivalDate,
             'departure_time' => $departureDate->format('H:i:s'),
             'arrival_time' => $arrivalDate->format('H:i:s'),
-            'festival_id' => \App\Models\Festival::inRandomOrder()->first()->id,
         ];
     }
-    //\App\Models\Busreizen::factory()->count(10)->create();
+    //\App\Models\Busreizen::factory()->count(100)->create();
 }

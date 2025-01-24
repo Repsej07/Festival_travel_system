@@ -25,6 +25,8 @@ class User extends Authenticatable
         'password',
         'profile_picture',
         'points',
+        'admin',
+        'travel_history',
     ];
 
     /**
@@ -49,4 +51,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function festivals()
+{
+    return $this->belongsToMany(Festival::class, 'user_trips', 'user_id', 'festival_id')
+                ->withTimestamps();
+}
+
 }

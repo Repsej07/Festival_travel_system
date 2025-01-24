@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('Homepage');
+        return redirect()->route('home');
     }
     public function search(Request $request)
     {

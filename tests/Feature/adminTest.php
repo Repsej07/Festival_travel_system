@@ -56,19 +56,12 @@ class adminTest extends TestCase
      *
      * @return void
      */
-<<<<<<< Updated upstream:tests/Feature/searchTest.php
-    public function test_search_users_functionality()
-    {
-        $adminUser = User::factory()->create(['admin' => true]);
-        $searchTerm = 'John';
-        User::factory()->create(['first_name' => 'John ', 'last_name' => 'Doe']);
-        User::factory()->create(['first_name' => 'Jane', 'last_name' => 'Doe']);
-=======
->>>>>>> Stashed changes:tests/Feature/adminTest.php
+
 
         $response = $this->actingAs($adminUser)->get("/admin/searchusers?search={$searchTerm}");
         $response->assertStatus(200);
         $results = $response->json('users');
         $this->assertTrue(collect($results)->contains('name', 'John Doe') && !collect($results)->contains('name', 'Jane Doe'));
     }
+
 }
