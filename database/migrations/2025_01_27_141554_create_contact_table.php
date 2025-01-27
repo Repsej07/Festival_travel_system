@@ -18,7 +18,6 @@ return new class extends Migration
             $table->text('message'); // Contact message
             $table->timestamps(); // created_at and updated_at columns
 
-            // Foreign key constraints
         });
     }
 

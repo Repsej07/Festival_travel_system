@@ -50,5 +50,4 @@ class BusreizenFactory extends Factory
             'arrival_time' => $arrivalDate->format('H:i:s'),
         ];
     }
-    //\App\Models\Busreizen::factory()->count(100)->create();
 }

@@ -46,5 +46,4 @@ class FestivalFactory extends Factory
             'status' => 'active',
         ];
     }
-    //\App\Models\Festival::factory()->count(15)->create();
 }

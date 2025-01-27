@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -10,7 +11,8 @@ class AdminMiddleware
     {
         if (!\Illuminate\Support\Facades\Auth::check() || !\Illuminate\Support\Facades\Auth::user()->admin) {
             // If the user is not an admin, deny access
-            abort(403);        }
+            abort(403);
+        }
 
         return $next($request);  // Allow the request to proceed
     }

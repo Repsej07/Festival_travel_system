@@ -37,15 +37,18 @@ class RegisteredUserController extends Controller
             'username' => ['required', 'string', 'unique:' . User::class],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'image' => ['image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         // Store the file and get the path
-        $imagePath = $request->file('image')->storeAs(
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->storeAs(
             'profile_pictures', // Directory to store file
             $request->username . '_' . time() . '.' . $request->file('image')->getClientOriginalExtension(),
             'public' // Use the public disk
-        );
+            );
+        }
 
         // Create user record in DB with the file path
         $user = User::create([

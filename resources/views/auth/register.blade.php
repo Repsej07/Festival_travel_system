@@ -52,7 +52,7 @@
                 <!-- Register Button -->
                 <div class=" flex flex-col">
                     <label class="flex content-center items-center mt-4 justify-center">
-                        <input type="file" name="image" required>
+                        <input type="file" name="image">
                     </label>
                     <button type="submit"
                         class="bg-apple_button_blue p-3 rounded-md text-white font-bold mt-4 hover:bg-apple_button_blue_hover">Create
