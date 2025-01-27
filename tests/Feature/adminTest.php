@@ -44,6 +44,6 @@ class AdminTest extends TestCase
         $response = $this->get('/admin');
 
         // Assert guest is redirected
-        $response->assertRedirect('/login'); // Assuming guest is redirected to login
+        $response->assertRedirect('/login');
     }
 }

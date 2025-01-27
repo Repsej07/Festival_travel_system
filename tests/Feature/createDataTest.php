@@ -18,9 +18,8 @@ class createDatatest extends TestCase
     {
         $festival = Festival::factory()->create();
 
-        // Assert the record was created in the database
         $this->assertDatabaseHas('festivals', [
-            'id' => $festival->id, // Ensure the created record exists
+            'id' => $festival->id,
         ]);
     }
 
@@ -28,9 +27,8 @@ class createDatatest extends TestCase
     {
         $busreis = Busreizen::factory()->create();
 
-        // Assert the record was created in the database
         $this->assertDatabaseHas('busreizen', [
-            'id' => $busreis->id, // Ensure the created record exists
+            'id' => $busreis->id,
         ]);
     }
 
@@ -39,9 +37,8 @@ class createDatatest extends TestCase
     {
         $user = User::factory()->create();
 
-        // Assert the record was created in the database
         $this->assertDatabaseHas('users', [
-            'id' => $user->id, // Ensure the created record exists
+            'id' => $user->id, 
         ]);
     }
 }

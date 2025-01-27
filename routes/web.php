@@ -8,6 +8,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\userDashboard;
 use App\Models\Festival;
 use App\Http\Controllers\festivalController;
+use App\Http\Controllers\ContactController;
 // Default route that redirects based on user roles
 Route::get('/', function () {
     if (Auth::check()) { // Check if the user is authenticated
@@ -41,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/festival/search', [festivalController::class, 'searchFestivals'])->name('festival.search');
 });
 
+// Public routes
+Route::post('/contact', [ContactController::class, 'store'])->name('contact');
+
 
 // Admin-specific resource routes
 Route::resource('admin', AdminController::class)
@@ -71,5 +75,6 @@ Route::patch('/admin/user/{user}', [AdminController::class, 'updateUser'])->name
 Route::post('/admin/user/store', [AdminController::class, 'storeUser'])->name('admin.user.store');
 Route::delete('/admin/user/{user}', [AdminController::class, 'destroyUser'])->name('admin.user.delete');
 Route::get('/admin/user/info/{user}', [AdminController::class, 'showUser'])->name('admin.user.info');
+
 // routes/web.php
 require __DIR__ . '/auth.php';
