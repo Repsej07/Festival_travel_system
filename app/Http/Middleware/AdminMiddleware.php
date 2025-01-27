@@ -10,8 +10,7 @@ class AdminMiddleware
     {
         if (!\Illuminate\Support\Facades\Auth::check() || !\Illuminate\Support\Facades\Auth::user()->admin) {
             // If the user is not an admin, deny access
-            return response()->view('errors.403', [], 403); // Optionally, use your own view
-        }
+            abort(403);        }
 
         return $next($request);  // Allow the request to proceed
     }
