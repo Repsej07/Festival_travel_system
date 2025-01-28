@@ -48,7 +48,9 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact');
 
 // Admin-specific resource routes
 Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::resource('/', AdminController::class)->except(['index', 'store']);
+    Route::resource('/', AdminController::class)->names([
+        'index' => 'admin.index'
+    ]);
     Route::get('/admin/searchusers', [AdminController::class, 'searchUsers'])->name('admin.searchusers');
     Route::get('/admin/searchfestivals', [AdminController::class, 'searchFestivals'])->name('admin.searchfestivals');
     Route::get('/admin/searchbusreizen', [AdminController::class, 'searchBusreizen'])->name('admin.searchbusreizen');
