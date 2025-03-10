@@ -42,7 +42,7 @@
                                         <div class="flex flex-row w-full">
                                             <li>Status: {{ $festival->status }}</li>
                                             <a href="{{ route('admin.festival.edit', $festival->id) }}"
-                                                class="ml-auto mr-3"><img src="{{ url('/assets/edit.svg') }}"
+                                                class="ml-auto mr-2"><img src="{{ url('/assets/edit.svg') }}"
                                                     alt="edit" class="float-right">
                                             </a>
                                             <form action="{{ route('admin.festival.delete', $festival->id) }}"
@@ -52,12 +52,12 @@
                                                 @method('DELETE')
                                                 <button type="submit">
                                                     <img src="{{ url('/assets/delete.svg') }}" alt="delete"
-                                                        class="float-right">
+                                                        class="float-right mr-2">
                                                 </button>
-
+                                            </form>
                                                 <a href="{{ route('festival.info', $festival->id) }}">
                                                     <img src="{{ url('/assets/info.svg') }}" alt="info"
-                                                        class="h-6 w-6">
+                                                        class="h-6 w-6 mr-1">
                                                 </a>
                                         </div>
                                     </div>
@@ -116,7 +116,7 @@
                                     <div class="flex flex-row justify-between items-end w-full">
                                         <!-- Optional additional details here -->
                                         <a href="{{ route('admin.busreis.edit', $busreis->id) }}"
-                                            class="ml-auto mb-1 mr-3">
+                                            class="ml-auto mr-2 mb-1">
                                             <img src="{{ url('/assets/edit.svg') }}" alt="edit"
                                                 class="object-right-bottom">
                                         </a>
@@ -127,12 +127,12 @@
                                             @method('DELETE')
                                             <button type="submit">
                                                 <img src="{{ url('/assets/delete.svg') }}" alt="delete"
-                                                    class="object-right-bottom">
+                                                    class="object-right-bottom mr-2">
                                             </button>
                                         </form>
 
                                         <a href="{{ route('admin.busreis.info', $busreis->id) }}">
-                                            <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                            <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6 mr-1 mb-1 object-right-bottom">
                                         </a>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                         @endif
                                     </li>
                                 </div>
-                                <div class="flex flex-row items-center justify-end w-full space-x-4">
+                                <div class="flex flex-row  justify-end w-full space-x-4">
                                     <!-- Edit Button -->
                                     <a href="{{ route('admin.user.edit', $user->id) }}">
                                         <img src="{{ url('/assets/edit.svg') }}" alt="edit" class="h-6 w-6">
@@ -209,7 +209,7 @@
                                     </form>
 
                                     <a href="{{ route('admin.user.info', $user->id) }}">
-                                        <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6">
+                                        <img src="{{ url('/assets/info.svg') }}" alt="info" class="h-6 w-6 mr-1">
                                     </a>
                                 </div>
 

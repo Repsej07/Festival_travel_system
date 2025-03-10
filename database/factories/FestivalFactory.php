@@ -40,7 +40,7 @@ class FestivalFactory extends Factory
             'location' => $locationCity,
             'date' => fake()->dateTimeBetween('+1 week', '+1 year'),
             'description' => fake()->paragraph(75),
-            'image' => 'festival_pictures/festival.png',
+            'image' => 'festival_pictures/placeholder.jpg',
             'price' => fake()->randomFloat(2, 0, 500), // Prices between 0 (free) and 500
             'tickets' => fake()->numberBetween(50, 1000), // Ticket count between 50 and 1000
             'status' => 'active',
