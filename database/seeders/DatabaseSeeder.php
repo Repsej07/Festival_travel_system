@@ -27,6 +27,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('admin'),
         ]);
+        DB::table('users')->insert([
+            'first_name' => 'user',
+            'last_name' => 'user',
+            'username' => 'user',
+            'admin' => false,
+            'email' => 'user@example.com',
+            'password' => Hash::make('user'),
+        ]);
         Festival::factory(10)->create();
         Busreizen::factory(10)->create();
 
