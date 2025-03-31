@@ -26,9 +26,8 @@ class AdminTest extends TestCase
         ]);
 
         $this->actingAs($user);
-
+        //test if the user can access the admin dashboard
         $response = $this->get('/admin/');
-
         $response->assertStatus(403);
     }
 }
