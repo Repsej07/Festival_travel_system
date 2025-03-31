@@ -1,8 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-    </x-slot>
+    <x-slot name="header"></x-slot>
+
     <div class="flex">
-        <div class="w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
+        <div class="relative w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
+
+            <!-- Close Button -->
+            <div class="absolute top-4 right-7">
+                <button onclick="window.history.back();" class="text-black text-3xl font-bold hover:text-red-500">
+                    &times;
+                </button>
+            </div>
+
             <div class="flex flex-row space-x-5 p-5">
                 <form action="{{ route('admin.festivals.store') }}" method="POST" class="p-5 grid grid-cols-2 gap-5" enctype="multipart/form-data">
                     @csrf

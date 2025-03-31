@@ -4,6 +4,7 @@
     <div class="flex">
         <div class="w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
             <div class="flex flex-row space-x-5 p-5">
+
                 <form action="{{ route('admin.busreis.update', ['busreis' => $busreis->id])}}" method="POST" class="p-5 grid grid-cols-2 gap-5">
                     @csrf
                     @method('PATCH')

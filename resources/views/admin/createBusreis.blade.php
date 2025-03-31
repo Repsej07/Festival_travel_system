@@ -2,7 +2,11 @@
     <x-slot name="header">
     </x-slot>
     <div class="flex">
-        <div class="w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
+        <div class="w-[90vw] h-160 bg-background_grey flex justify-center mx-auto mt-5 rounded-lg relative">
+            <!-- Close Cross -->
+            <button onclick="window.history.back();" class="absolute top-2 right-5 text-black text-3xl font-bold hover:text-red-500">
+                &times;
+            </button>
             <div class="flex flex-row space-x-5 p-5">
                 <form action="{{ route('admin.busreizen.store') }}" method="POST" class="p-5 grid grid-cols-2 gap-5" enctype="multipart/form-data">
                     @csrf

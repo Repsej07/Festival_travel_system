@@ -2,8 +2,15 @@
     <x-slot name="header">
     </x-slot>
     <div class="flex justify-center">
+
         <div class="w-[90vw] max-w-4xl h-auto bg-background_grey flex justify-center mx-auto mt-5 rounded-lg">
-            <div class="flex flex-col space-y-5 p-5 w-full h-144"> <!-- Adjust height here -->
+
+            <div class="flex flex-col space-y-5 p-5 w-full h-144">
+                <div class="flex justify-end">
+                    <button onclick="window.history.back();" class="text-black text-3xl font-bold hover:text-red-500">
+                        &times;
+                    </button>
+                </div>
                 <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col justify-between h-full">
                     @csrf
                     <div class="flex space-x-4">
